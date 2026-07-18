@@ -70,6 +70,9 @@ export function SpacePage() {
             {space.width} × {space.length} m{space.type === 'room' ? ` · hauteur ${space.height} m` : ''}
           </p>
         </div>
+        <Link to={`/room/${id}/edit`} className="text-lg" title="Modifier">
+          ✏️
+        </Link>
         <button onClick={handleDelete} className="text-lg" title="Supprimer">
           🗑️
         </button>

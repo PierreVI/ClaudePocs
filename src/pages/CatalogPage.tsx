@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { useCatalog, createCatalogItem, deleteCatalogItem } from '../store/useCatalog'
 import { PhotoPicker } from '../components/PhotoPicker'
+import { NumberField } from '../components/NumberField'
 import type { CatalogCategory } from '../types/models'
+
+const numberFieldClass =
+  'rounded-lg border-2 border-[var(--wood)] bg-white px-2 py-2 text-sm font-normal'
 
 export function CatalogPage() {
   const { items, loaded } = useCatalog()
@@ -69,7 +73,7 @@ function CatalogItemForm({ onDone }: { onDone: () => void }) {
   const [w, setW] = useState(0.6)
   const [d, setD] = useState(0.6)
   const [h, setH] = useState(0.8)
-  const [price, setPrice] = useState<string>('')
+  const [price, setPrice] = useState('')
   const [sourceUrl, setSourceUrl] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
@@ -82,7 +86,7 @@ function CatalogItemForm({ onDone }: { onDone: () => void }) {
       realWidth: w,
       realDepth: d,
       realHeight: h,
-      price: price ? Number(price) : undefined,
+      price: price ? Number(price.replace(',', '.')) : undefined,
       sourceUrl: sourceUrl || undefined,
     })
     onDone()
@@ -125,47 +129,27 @@ function CatalogItemForm({ onDone }: { onDone: () => void }) {
       <div className="grid grid-cols-3 gap-2">
         <label className="flex flex-col gap-1 text-xs font-bold">
           Largeur (m)
-          <input
-            type="number"
-            step={0.01}
-            min={0.01}
-            value={w}
-            onChange={(e) => setW(Number(e.target.value))}
-            className="rounded-lg border-2 border-[var(--wood)] bg-white px-2 py-2 text-sm font-normal"
-          />
+          <NumberField value={w} onChange={setW} min={0.01} className={numberFieldClass} />
         </label>
         <label className="flex flex-col gap-1 text-xs font-bold">
           Profondeur (m)
-          <input
-            type="number"
-            step={0.01}
-            min={0.01}
-            value={d}
-            onChange={(e) => setD(Number(e.target.value))}
-            className="rounded-lg border-2 border-[var(--wood)] bg-white px-2 py-2 text-sm font-normal"
-          />
+          <NumberField value={d} onChange={setD} min={0.01} className={numberFieldClass} />
         </label>
         <label className="flex flex-col gap-1 text-xs font-bold">
           Hauteur (m)
-          <input
-            type="number"
-            step={0.01}
-            min={0.01}
-            value={h}
-            onChange={(e) => setH(Number(e.target.value))}
-            className="rounded-lg border-2 border-[var(--wood)] bg-white px-2 py-2 text-sm font-normal"
-          />
+          <NumberField value={h} onChange={setH} min={0.01} className={numberFieldClass} />
         </label>
       </div>
 
       <label className="flex flex-col gap-1 text-sm font-bold">
         Prix (€)
         <input
-          type="number"
-          step={0.01}
-          min={0}
+          type="text"
+          inputMode="decimal"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) => {
+            if (/^[0-9]*[.,]?[0-9]*$/.test(e.target.value)) setPrice(e.target.value)
+          }}
           placeholder="199"
           className="rounded-lg border-2 border-[var(--wood)] bg-white px-3 py-2 text-base font-normal"
         />

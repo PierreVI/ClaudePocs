@@ -8,6 +8,7 @@ import {
   reorderBudgetTask,
   importBudgetTasks,
 } from '../store/useBudgetTasks'
+import { NumberField } from './NumberField'
 import type { BudgetTask, TaskStatus } from '../types/models'
 
 const STATUS_LABEL: Record<TaskStatus, string> = {
@@ -43,7 +44,7 @@ export function BudgetTaskList({ tasks, spaceId, title }: BudgetTaskListProps) {
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault()
     if (!label.trim()) return
-    await createBudgetTask({ spaceId, label: label.trim(), cost: cost ? Number(cost) : 0 })
+    await createBudgetTask({ spaceId, label: label.trim(), cost: cost ? Number(cost.replace(',', '.')) : 0 })
     setLabel('')
     setCost('')
   }
@@ -94,11 +95,10 @@ export function BudgetTaskList({ tasks, spaceId, title }: BudgetTaskListProps) {
               >
                 {task.label}
               </span>
-              <input
-                type="number"
-                step={0.01}
+              <NumberField
                 value={task.cost}
-                onChange={(e) => updateBudgetTask(task.id, { cost: Number(e.target.value) })}
+                onChange={(cost) => updateBudgetTask(task.id, { cost })}
+                min={0}
                 className="w-20 rounded border border-[var(--parchment-dark)] bg-white px-1 py-0.5 text-right text-xs"
               />
               <span className="text-xs">€</span>
@@ -140,10 +140,12 @@ export function BudgetTaskList({ tasks, spaceId, title }: BudgetTaskListProps) {
           className="flex-1 rounded-lg border-2 border-[var(--wood)] bg-white px-2 py-2 text-sm"
         />
         <input
-          type="number"
-          step={0.01}
+          type="text"
+          inputMode="decimal"
           value={cost}
-          onChange={(e) => setCost(e.target.value)}
+          onChange={(e) => {
+            if (/^[0-9]*[.,]?[0-9]*$/.test(e.target.value)) setCost(e.target.value)
+          }}
           placeholder="€"
           className="w-20 rounded-lg border-2 border-[var(--wood)] bg-white px-2 py-2 text-sm"
         />

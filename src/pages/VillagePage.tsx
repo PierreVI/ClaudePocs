@@ -4,6 +4,7 @@ import { useSpaces, moveSpaceOnMap } from '../store/useSpaces'
 import { useAllBudgetTasks, totalCost } from '../store/useBudgetTasks'
 import { useVillageSettings } from '../store/useBudget'
 import { BudgetGauge } from '../components/BudgetGauge'
+import { NumberField } from '../components/NumberField'
 import { tileColorFor } from '../utils/theme'
 import type { Space } from '../types/models'
 
@@ -40,11 +41,10 @@ export function VillagePage() {
         {editingBudget ? (
           <div className="village-card flex items-center gap-2 p-3">
             <span className="text-sm font-bold">Budget total récolté :</span>
-            <input
-              type="number"
-              min={0}
+            <NumberField
               value={draftBudget}
-              onChange={(e) => setDraftBudget(Number(e.target.value))}
+              onChange={setDraftBudget}
+              min={0}
               className="w-24 rounded-lg border-2 border-[var(--wood)] bg-white px-2 py-1 text-sm"
             />
             <span>€</span>
