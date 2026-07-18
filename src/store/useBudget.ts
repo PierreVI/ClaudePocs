@@ -7,12 +7,20 @@ export function useVillageSettings() {
   const settings = useLiveQuery(() => db.settings.get(SETTINGS_ID), [])
 
   async function setTotalBudget(totalBudget: number) {
-    await db.settings.put({ id: SETTINGS_ID, totalBudget })
+    const current = await db.settings.get(SETTINGS_ID)
+    await db.settings.put({ id: SETTINGS_ID, totalBudget, renderWorkerUrl: current?.renderWorkerUrl })
+  }
+
+  async function setRenderWorkerUrl(renderWorkerUrl: string) {
+    const current = await db.settings.get(SETTINGS_ID)
+    await db.settings.put({ id: SETTINGS_ID, totalBudget: current?.totalBudget ?? 0, renderWorkerUrl })
   }
 
   return {
     totalBudget: settings?.totalBudget ?? 0,
+    renderWorkerUrl: settings?.renderWorkerUrl ?? '',
     loaded: settings !== undefined,
     setTotalBudget,
+    setRenderWorkerUrl,
   }
 }

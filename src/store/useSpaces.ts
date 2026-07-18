@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { v4 as uuid } from 'uuid'
 import { db } from '../db/db'
-import type { Space, SpacePhoto, SpaceType } from '../types/models'
+import type { Space, SpacePhoto, SpaceType, WallSlot } from '../types/models'
 import { randomSeed } from '../utils/theme'
 
 export function useSpaces() {
@@ -58,4 +58,11 @@ export async function deleteSpace(id: string) {
 
 export async function moveSpaceOnMap(id: string, mapX: number, mapY: number) {
   await db.spaces.update(id, { mapX, mapY })
+}
+
+export async function setSpacePhoto(id: string, slot: WallSlot, dataUrl: string) {
+  const space = await db.spaces.get(id)
+  if (!space) return
+  const photos = [...space.photos.filter((p) => p.slot !== slot), { id: slot, slot, dataUrl }]
+  await db.spaces.update(id, { photos })
 }

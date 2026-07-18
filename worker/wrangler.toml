@@ -1,0 +1,14 @@
+name = "village-ai-render"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# Restrict this to your deployed site's origin once you know it, e.g.
+# "https://pierrevi.github.io" — "*" works too but allows any site to call
+# your Worker (and burn your Gemini quota).
+ALLOWED_ORIGIN = "https://pierrevi.github.io"
+GEMINI_MODEL = "gemini-2.5-flash-image"
+
+# GEMINI_API_KEY is a secret, not a var: set it with
+#   npx wrangler secret put GEMINI_API_KEY
+# so it never ends up in this file or in git.

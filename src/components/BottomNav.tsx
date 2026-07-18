@@ -4,6 +4,7 @@ const items = [
   { to: '/', label: 'Village', icon: '🏘️', end: true },
   { to: '/catalog', label: 'Catalogue', icon: '🛋️', end: false },
   { to: '/budget', label: 'Budget', icon: '💰', end: false },
+  { to: '/settings', label: 'Réglages', icon: '⚙️', end: false },
 ]
 
 export function BottomNav() {
@@ -15,7 +16,7 @@ export function BottomNav() {
           to={item.to}
           end={item.end}
           className={({ isActive }) =>
-            `flex flex-col items-center gap-0.5 rounded-xl px-4 py-1 text-xs font-bold transition-colors ${
+            `flex flex-col items-center gap-0.5 rounded-xl px-2 py-1 text-xs font-bold transition-colors ${
               isActive ? 'text-[var(--leaf-dark)]' : 'text-[var(--ink-soft)]'
             }`
           }

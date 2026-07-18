@@ -6,6 +6,7 @@ import { EditSpacePage } from './pages/EditSpacePage'
 import { SpacePage } from './pages/SpacePage'
 import { CatalogPage } from './pages/CatalogPage'
 import { BudgetPage } from './pages/BudgetPage'
+import { SettingsPage } from './pages/SettingsPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/room/:id" element={<SpacePage />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/budget" element={<BudgetPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
         </main>
         <BottomNav />

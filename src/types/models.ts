@@ -77,4 +77,17 @@ export interface VillageSettings {
   id: 'singleton'
   /** the "harvest" budget the player is working towards */
   totalBudget: number
+  /** URL of the deployed AI renovation proxy (Cloudflare Worker), if configured */
+  renderWorkerUrl?: string
+}
+
+export interface RoomRender {
+  id: string
+  spaceId: string
+  /** which photo this render was generated from */
+  sourceSlot: WallSlot
+  prompt: string
+  /** data: URL of the AI-generated image */
+  dataUrl: string
+  createdAt: number
 }

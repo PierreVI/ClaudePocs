@@ -6,8 +6,9 @@ import { usePlacedItems, placeItem, updatePlacedItem, removePlacedItem } from '.
 import { useBudgetTasks, totalCost } from '../store/useBudgetTasks'
 import { RoomScene3D } from '../three/RoomScene3D'
 import { BudgetTaskList } from '../components/BudgetTaskList'
+import { RenovationPanel } from '../components/RenovationPanel'
 
-type Tab = '3d' | 'meubles' | 'budget'
+type Tab = '3d' | 'meubles' | 'renovation' | 'budget'
 
 export function SpacePage() {
   const { id } = useParams<{ id: string }>()
@@ -83,6 +84,7 @@ export function SpacePage() {
           [
             ['3d', '🧭 Vue 3D'],
             ['meubles', '🛋️ Meubles'],
+            ['renovation', '✨ Rénover'],
             ['budget', '💰 Étapes'],
           ] as [Tab, string][]
         ).map(([key, label]) => (
@@ -233,6 +235,8 @@ export function SpacePage() {
           )}
         </div>
       )}
+
+      {tab === 'renovation' && <RenovationPanel space={space} />}
 
       {tab === 'budget' && (
         <div className="flex flex-col gap-3">
