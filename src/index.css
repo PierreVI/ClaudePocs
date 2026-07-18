@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+:root {
+  --sky-top: #bfe6f5;
+  --sky-bottom: #eaf7e4;
+  --parchment: #fbf3e1;
+  --parchment-dark: #f0e2c4;
+  --ink: #3a2e22;
+  --ink-soft: #6b5a45;
+  --wood: #a9713f;
+  --wood-dark: #7c4f28;
+  --leaf: #5a9c62;
+  --leaf-dark: #3f7a48;
+  --gold: #e8b23d;
+  --danger: #d9634a;
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 45%, #d9edd0 100%);
+  background-attachment: fixed;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+  margin: 0 auto;
+  min-height: 100svh;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+  background: transparent;
+}
+
+.village-card {
+  background: var(--parchment);
+  border: 3px solid var(--wood);
+  border-radius: 18px;
+  box-shadow: 0 4px 0 var(--wood-dark), 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.village-btn {
+  border-radius: 14px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+.village-btn:active {
+  transform: translateY(2px) scale(0.98);
+}
+.village-btn-primary {
+  background: linear-gradient(180deg, #7fc78a 0%, var(--leaf) 60%, var(--leaf-dark) 100%);
+  color: white;
+  box-shadow: 0 3px 0 var(--leaf-dark);
+}
+.village-btn-primary:active {
+  box-shadow: 0 1px 0 var(--leaf-dark);
+}
+.village-btn-wood {
+  background: linear-gradient(180deg, #c78a52 0%, var(--wood) 60%, var(--wood-dark) 100%);
+  color: white;
+  box-shadow: 0 3px 0 var(--wood-dark);
+}
+.village-btn-wood:active {
+  box-shadow: 0 1px 0 var(--wood-dark);
+}
+.village-btn-ghost {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink);
+  border: 2px solid var(--parchment-dark);
+}
+
+.gauge-track {
+  background: #e4d5b5;
+  border: 2px solid var(--wood-dark);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.gauge-fill {
+  background: linear-gradient(90deg, var(--gold), #f6d27a);
+  transition: width 0.4s ease;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--parchment-dark);
+  border-radius: 8px;
+}
